@@ -1,92 +1,81 @@
 package com.distribuida.controller;
 
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-	import java.util.List;
+import com.distribuida.dao.Detalle_facturaDao;
+import com.distribuida.entities.DetalleFactura;
 
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.lang.Nullable;
-	import org.springframework.stereotype.Controller;
+@Controller
+@RequestMapping("/Detallefacturas")
+public class Detalle_facturaController {
 
-	import org.springframework.ui.ModelMap;
-	import org.springframework.web.bind.annotation.GetMapping;
-	import org.springframework.web.bind.annotation.PostMapping;
-	import org.springframework.web.bind.annotation.RequestMapping;
-	import org.springframework.web.bind.annotation.RequestParam;
+    @Autowired
+    private Detalle_facturaDao detalleFacturaDao;
 
+    @GetMapping("/findAll")
+    public String findAll(ModelMap modelMap) {
+        List<DetalleFactura> detalleFacturas = detalleFacturaDao.findAll();
+        modelMap.addAttribute("Detalle_facturas", detalleFacturas);
+        return "Listar-Detallefactura";
+    }
 
-	import com.distribuida.dao.Detalle_facturaDao;
-	import com.distribuida.entities.DetalleFactura;
+    @GetMapping("/findOne")
+    public String findOne(@RequestParam("idDetalle_factura") @Nullable Integer idDetalleFactura,
+                          @RequestParam("opcion") @Nullable Integer opcion,
+                          ModelMap modelMap) {
+        if (idDetalleFactura != null) {
+            DetalleFactura detalleFactura = detalleFacturaDao.findOne(idDetalleFactura);
+            modelMap.addAttribute("Detalle_factura", detalleFactura);
+        }
 
+        // If option 1, go to add page, else go to delete page
+        if (opcion == 1) {
+            return "add-Detalle_facturas";
+        } else {
+            return "del-Detalle_facturas";
+        }
+    }
 
+    @PostMapping("/add")
+    public String add(@RequestParam("idDetalle_factura") @Nullable Integer idDetalleFactura,
+                      @RequestParam("cantidad") @Nullable Integer cantidad,
+                      @RequestParam("id_factura") @Nullable Integer idFactura,
+                      @RequestParam("id_libro") @Nullable Integer idProducto,
+                      @RequestParam("precio_unitario") @Nullable Double precioUnitario,
+                      ModelMap modelMap) {
 
-	@Controller
-	@RequestMapping("/Detalle_facturas")       //paht principal
-	public class Detalle_facturaController {
-		
-		// JSP .- Java Server Page, son las paginas web de tecnologia java
-		@Autowired
-		private Detalle_facturaDao Detalle_facturaDao;
-		
-		@GetMapping("/findAll")        //paht secundario
-		public String findAll (ModelMap modelMap) {
-			//try {
-				List<DetalleFactura> Detalle_facturas = Detalle_facturaDao.findAll();
-				
-				modelMap.addAttribute("Detalle_factura", Detalle_facturas);
-				
-				return "Listar-Clinetes";  //Esto es el nombre del formulario .html
-		//	}catch(Exception e) {
-				
-				
-			}
-		
-		
-		@GetMapping("/findOne")
-		public String finOne(@RequestParam("idDetalle_factura")@Nullable Integer idDetalle_factura, 
-		                     @RequestParam("opcion")@Nullable Integer opcion,
-		                     ModelMap modelMap
-		)
-		{
-			if(idDetalle_factura!=null) {
-				DetalleFactura Detalle_factura = Detalle_facturaDao.findOne(idDetalle_factura);
-				modelMap.addAttribute("Detalle_factura",Detalle_factura);
-			}
-			
-			//Actualizacion
-			if(opcion==1) return "add-Detalle_facturas";
-			//Eliminacion
-			else return "del-Detalle_facturas";
-		} 
-		@PostMapping ("/add")
-		public String add(@RequestParam("idDetalle_factura")@Nullable Integer idDetalle_factura,
-				@RequestParam("cantidad") @Nullable Integer cantidad,
-			    @RequestParam("subtotal") @Nullable Float subtotal,
-			    @RequestParam("id_factura") @Nullable Integer idFactura,
-			    @RequestParam("id_libro") @Nullable Integer idLibro,
-				          ModelMap modelMap
-				          ) {
-			//try {
-			if(idDetalle_factura == null) {
-				DetalleFactura Detalle_factura = new DetalleFactura();
-				Detalle_facturaDao.add(Detalle_factura);
-				
-				}else {
-					DetalleFactura Detalle_factura2 = new DetalleFactura();
-					Detalle_facturaDao.up(Detalle_factura2);
-				}
-		
-		return "redirect:/Detalle_facturas/findAll";   //ir al formulario web
-//		}catch (Exception e){}
-	}
-		//try {
-		@GetMapping("/del")
-		public String del(@RequestParam("idDetalle_factura")@Nullable Integer idDetalle_factura) {
-			Detalle_facturaDao.del(idDetalle_factura);
-			return "redirect:/Detalle_facturas/findAll";
-//			}catch (Exception e){}	
-		}
-	}
-	 
+        if (idDetalleFactura == null) {
+            DetalleFactura detalleFactura = new DetalleFactura();
+            detalleFactura.setCantidad(cantidad);
+            detalleFactura.setIdFactura(idFactura);
+            detalleFactura.setIdProducto(idProducto);
+            detalleFactura.setPrecioUnitario(precioUnitario);
+            detalleFacturaDao.add(detalleFactura);
+        } else {
+            DetalleFactura detalleFactura2 = new DetalleFactura();
+            detalleFactura2.setIdDetalleFactura(idDetalleFactura);
+            detalleFactura2.setCantidad(cantidad);
+            detalleFactura2.setIdFactura(idFactura);
+            detalleFactura2.setIdProducto(idProducto);
+            detalleFactura2.setPrecioUnitario(precioUnitario);
+            detalleFacturaDao.up(detalleFactura2);
+        }
 
+        return "redirect:/Detallefacturas/findAll";   // Redirect to the list page after adding or updating
+    }
 
+    @GetMapping("/del")
+    public String delete(@RequestParam("idDetalle_factura") @Nullable Integer idDetalleFactura) {
+        detalleFacturaDao.del(idDetalleFactura);
+        return "redirect:/Detallefacturas/findAll";  // Redirect to the list page after deletion
+    }
+}

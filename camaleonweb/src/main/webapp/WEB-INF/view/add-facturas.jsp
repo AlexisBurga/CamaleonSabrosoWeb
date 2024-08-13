@@ -16,7 +16,7 @@
             <c:otherwise>Agregar</c:otherwise>
         </c:choose> Factura</h1>
 
-    <form action="/weblibreria/facturas/add" method="post">
+    <form action="/camaleonweb/facturas/addOrUpdate" method="post">
         <input type="hidden" name="idFactura" value="${factura.idFactura}" />
         
         <label for="total">Total:</label>

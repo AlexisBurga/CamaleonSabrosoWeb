@@ -39,52 +39,49 @@ public class FacturaController {
             modelMap.addAttribute("factura", factura);
         }
 
-        // Actualización
-        if (opcion != null && opcion == 1) {
-            return "add-factura";
-        } else {
-            // Eliminación
-            return "del-factura";
+        if (opcion == 1) return "add-facturas";  // Actualización
+         else return "del-facturas";  // Eliminación
         }
-    }
+    
 
-    @PostMapping("/add")
-    public String add(@RequestParam(name = "idFactura", required = false) Integer idFactura,
-                      @RequestParam(name = "total", required = false) Double total,
-                      @RequestParam(name = "idPedido", required = false) Integer idPedido,
-                      @RequestParam(name = "idTipoPago", required = false) Integer idTipoPago,
-                      ModelMap modelMap) {
-        try {
-            if (idFactura == null) {
-                Factura factura = new Factura();
-                factura.setTotal(total);
-                factura.setIdPedido(idPedido);
-                factura.setIdTipoPago(idTipoPago);
-                facturaDao.add(factura);
-            } else {
-                Factura factura = facturaDao.findOne(idFactura);
-                factura.setTotal(total);
-                factura.setIdPedido(idPedido);
-                factura.setIdTipoPago(idTipoPago);
-                facturaDao.up(factura);
-            }
-            return "redirect:/Factura/findAll";
-        } catch (Exception e) {
-            modelMap.addAttribute("error", "Error saving factura: " + e.getMessage());
-            return "error"; // Proporciona una página de error si es necesario
-        }
-    }
 
-    @GetMapping("/del")
-    public String delete(@RequestParam(name = "idFactura", required = false) Integer idFactura, ModelMap modelMap) {
-        try {
-            if (idFactura != null) {
-                facturaDao.del(idFactura);
+        @PostMapping("/add")
+        public String add(@RequestParam(name = "idFactura", required = false) Integer idFactura,
+                                  @RequestParam(name = "total", required = false) Double total,
+                                  @RequestParam(name = "idPedido", required = false) Integer idPedido,
+                                  @RequestParam(name = "idTipoPago", required = false) Integer idTipoPago,
+                                  ModelMap modelMap) {
+            try {
+                if (idFactura == null) {
+                    Factura factura = new Factura();
+                    factura.setTotal(total);
+                    factura.setIdPedido(idPedido);
+                    factura.setIdTipoPago(idTipoPago);
+                    facturaDao.add(factura);
+                } else {
+                    Factura factura = facturaDao.findOne(idFactura);
+                    factura.setTotal(total);
+                    factura.setIdPedido(idPedido);
+                    factura.setIdTipoPago(idTipoPago);
+                    facturaDao.up(factura);
+                }
+                return "redirect:/facturas/findAll";
+            } catch (Exception e) {
+                modelMap.addAttribute("error", "Error saving factura: " + e.getMessage());
+                return "error";
             }
-            return "redirect:/Factura/findAll";
-        } catch (Exception e) {
-            modelMap.addAttribute("error", "Error deleting factura: " + e.getMessage());
-            return "error"; // Proporciona una página de error si es necesario
+        }
+
+        @GetMapping("/del")
+        public String delete(@RequestParam(name = "idFactura", required = false) Integer idFactura, ModelMap modelMap) {
+            try {
+                if (idFactura != null) {
+                    facturaDao.del(idFactura);
+                }
+                return "redirect:/facturas/findAll";
+            } catch (Exception e) {
+                modelMap.addAttribute("error", "Error deleting factura: " + e.getMessage());
+                return "error";
+            }
         }
     }
-}

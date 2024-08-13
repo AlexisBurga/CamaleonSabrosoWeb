@@ -17,7 +17,7 @@
     
     <c:if test="${not empty facturas}">
         <table border="1">
-            <thead>
+            <thead> 
                 <tr>
                     <th>ID</th>
                     <th>Total</th>
