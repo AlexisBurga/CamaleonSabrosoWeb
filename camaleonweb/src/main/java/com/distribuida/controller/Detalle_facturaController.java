@@ -49,9 +49,14 @@ public class Detalle_facturaController {
     public String add(@RequestParam("idDetalle_factura") @Nullable Integer idDetalleFactura,
                       @RequestParam("cantidad") @Nullable Integer cantidad,
                       @RequestParam("id_factura") @Nullable Integer idFactura,
-                      @RequestParam("id_libro") @Nullable Integer idProducto,
+                      @RequestParam("id_producto") @Nullable Integer idProducto,  // Cambiado de id_libro a id_producto
                       @RequestParam("precio_unitario") @Nullable Double precioUnitario,
                       ModelMap modelMap) {
+
+        if (idProducto == null) {
+            modelMap.addAttribute("error", "El campo ID Producto no puede estar vacío.");
+            return "add-Detalle_facturas";  // Regresar al formulario si el ID Producto es nulo
+        }
 
         if (idDetalleFactura == null) {
             DetalleFactura detalleFactura = new DetalleFactura();

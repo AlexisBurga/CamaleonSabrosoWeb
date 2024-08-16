@@ -19,81 +19,75 @@ public class DetalleFactura {
     @Column(name = "id_detalle_factura")
     private int idDetalleFactura;
 
-    @Column(name = "idFactura")
+    @Column(name = "id_factura")
     private int idFactura;
 
-    @Column(name = "IdProducto")
+    @Column(name = "id_producto")
     private int idProducto;
 
-    @Column(name = "Cantidad")
+    @Column(name = "cantidad")
     private int cantidad;
-  
-    @Column(name = "PrecioUnitario")
+
+    @Column(name = "precio_unitario")
     private double precioUnitario;
 
-    // 
-	//@JoinColumn(name = "idFacturaa")
-	//@JoinColumn(name = "idTipoPago")
-	//@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	
     // Constructor sin argumentos
     public DetalleFactura() {
     }
 
-	public DetalleFactura(int idDetalleFactura, int idFactura, int idProducto, int cantidad, double precioUnitario) {
-		
-		this.idDetalleFactura = idDetalleFactura;
-		this.idFactura = idFactura;
-		this.idProducto = idProducto;
-		this.cantidad = cantidad;
-		this.precioUnitario = precioUnitario;
-	}
+    // Constructor con argumentos
+    public DetalleFactura(int idDetalleFactura, int idFactura, int idProducto, int cantidad, double precioUnitario) {
+        this.idDetalleFactura = idDetalleFactura;
+        this.idFactura = idFactura;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+    }
 
-	public int getIdDetalleFactura() {
-		return idDetalleFactura;
-	}
+    // Getters y setters
+    public int getIdDetalleFactura() {
+        return idDetalleFactura;
+    }
 
-	public void setIdDetalleFactura(int idDetalleFactura) {
-		this.idDetalleFactura = idDetalleFactura;
-	}
+    public void setIdDetalleFactura(int idDetalleFactura) {
+        this.idDetalleFactura = idDetalleFactura;
+    }
 
-	public int getIdFactura() {
-		return idFactura;
-	}
+    public int getIdFactura() {
+        return idFactura;
+    }
 
-	public void setIdFactura(int idFactura) {
-		this.idFactura = idFactura;
-	}
+    public void setIdFactura(int idFactura) {
+        this.idFactura = idFactura;
+    }
 
-	public int getIdProducto() {
-		return idProducto;
-	}
+    public int getIdProducto() {
+        return idProducto;
+    }
 
-	public void setIdProducto(int idProducto) {
-		this.idProducto = idProducto;
-	}
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    public int getCantidad() {
+        return cantidad;
+    }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
-	public double getPrecioUnitario() {
-		return precioUnitario;
-	}
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
 
-	public void setPrecioUnitario(double precioUnitario) {
-		this.precioUnitario = precioUnitario;
-	}
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
 
-	@Override
-	public String toString() {
-		return "DetalleFactura [idDetalleFactura=" + idDetalleFactura + ", idFactura=" + idFactura + ", idProducto="
-				+ idProducto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + "]";
-	}
-	
-	
+    @Override
+    public String toString() {
+        return "DetalleFactura [idDetalleFactura=" + idDetalleFactura + ", idFactura=" + idFactura + ", idProducto="
+                + idProducto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + "]";
+    }
 }

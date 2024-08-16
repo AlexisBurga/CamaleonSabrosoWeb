@@ -20,68 +20,70 @@ public class FacturaController {
 
     @GetMapping("/findAll")
     public String findAll(ModelMap modelMap) {
-        //try {
+      //  try {
             List<Factura> facturas = facturaDao.findAll();
             modelMap.addAttribute("facturas", facturas);
-            return "listar-facturas"; // Asegúrate de que esto coincida con el nombre de tu plantilla
-        //} catch (Exception e) {
-        //   modelMap.addAttribute("error", "Error fetching facturas: " + e.getMessage());
-        //    return "error"; // Proporciona una página de error si es necesario
-        //}
+            return "listar-facturas";
+       // } catch (Exception e) {
+       //     modelMap.addAttribute("error", "Error fetching facturas: " + e.getMessage());
+       //  }
     }
 
     @GetMapping("/findOne")
     public String findOne(@RequestParam(name = "idFactura", required = false) Integer idFactura,
                           @RequestParam(name = "opcion", required = false) Integer opcion,
                           ModelMap modelMap) {
-        if (idFactura != null) {
-            Factura factura = facturaDao.findOne(idFactura);
-            modelMap.addAttribute("factura", factura);
-        }
-
-        if (opcion == 1) return "add-facturas";  // Actualización
-         else return "del-facturas";  // Eliminación
-        }
-    
-
-
-        @PostMapping("/add")
-        public String add(@RequestParam(name = "idFactura", required = false) Integer idFactura,
-                                  @RequestParam(name = "total", required = false) Double total,
-                                  @RequestParam(name = "idPedido", required = false) Integer idPedido,
-                                  @RequestParam(name = "idTipoPago", required = false) Integer idTipoPago,
-                                  ModelMap modelMap) {
-            try {
-                if (idFactura == null) {
-                    Factura factura = new Factura();
-                    factura.setTotal(total);
-                    factura.setIdPedido(idPedido);
-                    factura.setIdTipoPago(idTipoPago);
-                    facturaDao.add(factura);
-                } else {
-                    Factura factura = facturaDao.findOne(idFactura);
-                    factura.setTotal(total);
-                    factura.setIdPedido(idPedido);
-                    factura.setIdTipoPago(idTipoPago);
-                    facturaDao.up(factura);
-                }
-                return "redirect:/facturas/findAll";
-            } catch (Exception e) {
-                modelMap.addAttribute("error", "Error saving factura: " + e.getMessage());
-                return "error";
+       // try {
+            if (idFactura != null) {
+                Factura factura = facturaDao.findOne(idFactura);
+                modelMap.addAttribute("factura", factura);
             }
-        }
-
-        @GetMapping("/del")
-        public String delete(@RequestParam(name = "idFactura", required = false) Integer idFactura, ModelMap modelMap) {
-            try {
-                if (idFactura != null) {
-                    facturaDao.del(idFactura);
-                }
-                return "redirect:/facturas/findAll";
-            } catch (Exception e) {
-                modelMap.addAttribute("error", "Error deleting factura: " + e.getMessage());
-                return "error";
-            }
-        }
+            if (opcion == 1) return "add-facturas";
+            else return "del-facturas";
+        //} catch (Exception e) {
+        //    modelMap.addAttribute("error", "Error fetching factura: " + e.getMessage());
+          //  return "error";
+       // }
     }
+
+    @PostMapping("/add")
+    public String add(@RequestParam(name = "idFactura", required = false) Integer idFactura,
+                      @RequestParam(name = "total", required = false) Double total,
+                      @RequestParam(name = "idPedido", required = false) Integer idPedido,
+                      @RequestParam(name = "idTipoPago", required = false) Integer idTipoPago,
+                      ModelMap modelMap) {
+     //   try {
+            if (idFactura == null) {
+                Factura factura = new Factura();
+                factura.setTotal(total);
+                factura.setIdPedido(idPedido);
+                factura.setIdTipoPago(idTipoPago);
+                facturaDao.add(factura);
+            } else {
+                Factura factura = facturaDao.findOne(idFactura);
+                factura.setTotal(total);
+                factura.setIdPedido(idPedido);
+                factura.setIdTipoPago(idTipoPago);
+                facturaDao.up(factura);
+            }
+            return "redirect:/facturas/findAll";
+        
+   //     } catch (Exception e) {
+          //  modelMap.addAttribute("error", "Error saving factura: " + e.getMessage());
+         //   return "error";
+       // }
+    }
+
+    @GetMapping("/del")
+    public String delete(@RequestParam(name = "idFactura", required = false) Integer idFactura, ModelMap modelMap) {
+     //   try {
+            if (idFactura != null) {
+                facturaDao.del(idFactura);
+            }
+            return "redirect:/facturas/findAll";
+     //   } catch (Exception e) {
+     //       modelMap.addAttribute("error", "Error deleting factura: " + e.getMessage());
+       //     return "error";
+       // }
+    }
+  }

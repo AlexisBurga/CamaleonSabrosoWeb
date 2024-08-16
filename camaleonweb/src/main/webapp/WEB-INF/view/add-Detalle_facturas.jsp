@@ -16,16 +16,16 @@
     <input type="hidden" name="idDetalle_factura" value="${Detalle_factura.idDetalleFactura}"/>
 
     <label>Cantidad:</label>
-    <input type="text" name="cantidad" value="${Detalle_factura.cantidad}" required/><br/>
+    <input type="number" name="cantidad" value="${Detalle_factura.cantidad}" required/><br/>
 
     <label>Precio Unitario:</label>
-    <input type="text" name="precio_unitario" value="${Detalle_factura.precioUnitario}" required/><br/>
+    <input type="number" step="0.01" name="precio_unitario" value="${Detalle_factura.precioUnitario}" required/><br/>
 
     <label>ID Factura:</label>
-    <input type="text" name="id_factura" value="${Detalle_factura.idFactura}" required/><br/>
+    <input type="number" name="id_factura" value="${Detalle_factura.idFactura}" required/><br/>
 
     <label>ID Producto:</label>
-    <input type="text" name="id_producto" value="${Detalle_factura.idProducto}" required/><br/>
+    <input type="number" name="id_producto" value="${Detalle_factura.idProducto}" required/><br/>
 
     <button type="submit">Guardar</button>
 </form>

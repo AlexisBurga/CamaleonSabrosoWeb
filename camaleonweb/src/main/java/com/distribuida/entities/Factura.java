@@ -14,10 +14,10 @@ public class Factura {
     @Column(name = "total")
     private Double total;
 
-    @Column(name = "IdPedido")
+    @Column(name = "id_pedido")  // Corregido
     private Integer idPedido;
 
-    @Column(name = "IdTipoPago")
+    @Column(name = "id_tipo_pago")  // Corregido
     private Integer idTipoPago;
 
     // Constructor sin argumentos (requerido por Hibernate)
