@@ -25,7 +25,7 @@ public class Detalle_facturaController {
     public String findAll(ModelMap modelMap) {
         List<DetalleFactura> detalleFacturas = detalleFacturaDao.findAll();
         modelMap.addAttribute("Detalle_facturas", detalleFacturas);
-        return "Listar-Detallefactura";
+        return "listar-Detallefacturas";
     }
 
     @GetMapping("/findOne")
@@ -38,10 +38,10 @@ public class Detalle_facturaController {
         }
 
         // If option 1, go to add page, else go to delete page
-        if (opcion == 1) {
-            return "add-Detalle_facturas";
+        if (opcion != null && opcion == 1) {
+            return "add-Detallefacturas";
         } else {
-            return "del-Detalle_facturas";
+            return "del-Detallefacturas";
         }
     }
 
@@ -55,7 +55,7 @@ public class Detalle_facturaController {
 
         if (idProducto == null) {
             modelMap.addAttribute("error", "El campo ID Producto no puede estar vacío.");
-            return "add-Detalle_facturas";  // Regresar al formulario si el ID Producto es nulo
+            return "add-Detallefacturas";  // Regresar al formulario si el ID Producto es nulo
         }
 
         if (idDetalleFactura == null) {

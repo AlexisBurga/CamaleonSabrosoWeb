@@ -33,18 +33,17 @@ public class FacturaController {
     public String findOne(@RequestParam(name = "idFactura", required = false) Integer idFactura,
                           @RequestParam(name = "opcion", required = false) Integer opcion,
                           ModelMap modelMap) {
-       // try {
-            if (idFactura != null) {
-                Factura factura = facturaDao.findOne(idFactura);
-                modelMap.addAttribute("factura", factura);
-            }
-            if (opcion == 1) return "add-facturas";
-            else return "del-facturas";
-        //} catch (Exception e) {
-        //    modelMap.addAttribute("error", "Error fetching factura: " + e.getMessage());
-          //  return "error";
-       // }
+        if (idFactura != null) {
+            Factura factura = facturaDao.findOne(idFactura);
+            modelMap.addAttribute("factura", factura);
+        }
+        if (opcion != null && opcion == 1) {
+            return "add-facturas";
+        } else {
+            return "del-facturas";
+        }
     }
+
 
     @PostMapping("/add")
     public String add(@RequestParam(name = "idFactura", required = false) Integer idFactura,
