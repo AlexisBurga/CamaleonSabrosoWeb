@@ -20,7 +20,7 @@
 
         <!-- Botón para agregar una nueva factura -->
         <div class="mb-3">
-            <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/facturas/findOne?opcion=1'; return false;">
+            <button class="btn btn-primary" onclick="window.location.href='/camaleonweb/facturas/findOne?opcion=1'; return false;">
                 Agregar Nueva Factura
                 <i class="fa-solid fa-file-invoice"></i>
             </button>
@@ -50,11 +50,11 @@
                                 <td>${factura.idTipoPago}</td>
                                 <td>
                                     <!-- Botón para editar la factura -->
-                                    <button class="btn btn-sm btn-warning" onclick="window.location.href='${pageContext.request.contextPath}/facturas/findOne?idFactura=${factura.idFactura}&opcion=1'; return false;">
+                                    <button class="btn btn-sm btn-warning" onclick="window.location.href='/camaleonweb/facturas/findOne?idFactura=${factura.idFactura}&opcion=1'; return false;">
                                         <i class="fa-solid fa-edit"></i>
                                     </button>
                                     <!-- Botón para ir al formulario de confirmación para eliminar la factura -->
-                                    <button class="btn btn-sm btn-danger" onclick="window.location.href='${pageContext.request.contextPath}/facturas/findOne?idFactura=${factura.idFactura}&opcion=2'; return false;">
+                                    <button class="btn btn-sm btn-danger" onclick="window.location.href='/camaleonweb/facturas/findOne?idFactura=${factura.idFactura}&opcion=2'; return false;">
                                         <i class="fa-solid fa-trash-alt"></i>
                                     </button>
                                 </td>

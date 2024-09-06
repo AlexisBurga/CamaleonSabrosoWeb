@@ -19,7 +19,7 @@
 
         <!-- Botón para agregar un nuevo detalle de factura -->
         <div class="mb-3">
-            <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/Detallefacturas/findOne?opcion=1'; return false;">
+            <button class="btn btn-primary" onclick="window.location.href='/camaleonweb/Detallefacturas/findOne?opcion=1'; return false;">
                 Agregar Nuevo Detalle de Factura
                 <i class="fa-solid fa-plus"></i>
             </button>
@@ -51,11 +51,11 @@
                                 <td>${detalle.idProducto}</td>
                                 <td>
                                     <!-- Botón para editar el detalle de factura -->
-                                    <button class="btn btn-sm btn-warning" onclick="window.location.href='${pageContext.request.contextPath}/Detallefacturas/findOne?idDetalle_factura=${detalle.idDetalleFactura}&opcion=1'; return false;">
+                                    <button class="btn btn-sm btn-warning" onclick="window.location.href='/camaleonweb/Detallefacturas/findOne?idDetalle_factura=${detalle.idDetalleFactura}&opcion=1'; return false;">
                                         <i class="fa-solid fa-edit"></i>
                                     </button>
                                     <!-- Botón para eliminar el detalle de factura -->
-                                    <button class="btn btn-sm btn-danger" onclick="window.location.href='${pageContext.request.contextPath}/Detallefacturas/findOne?idDetalle_factura=${detalle.idDetalleFactura}&opcion=2'; return false;">
+                                    <button class="btn btn-sm btn-danger" onclick="window.location.href='/camaleonweb/Detallefacturas/findOne?idDetalle_factura=${detalle.idDetalleFactura}&opcion=2'; return false;">
                                         <i class="fa-solid fa-trash-alt"></i>
                                     </button>
                                 </td>
